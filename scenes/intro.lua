@@ -2,7 +2,9 @@ local composer = require( "composer" )
 
 local scene = composer.newScene()
 
-local button
+local button, backgroundImage
+local backGroup = display.newGroup()
+local uiGroup = display.newGroup()
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -19,7 +21,13 @@ function scene:create( event )
 
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
-
+    backgroundImage = display.newImageRect( backGroup, "images/BGIntro.jpg", display.actualContentWidth, display.actualContentHeight)
+    backgroundImage.x, backgroundImage.y = display.contentCenterX, display.contentCenterY
+  --  backgroundImage:toBack()
+    button = display.newText( uiGroup,"bat dau", 200, 150)
+    button.x, button.y = display.contentCenterX, display.contentCenterY
+    sceneGroup:insert( backGroup )
+    sceneGroup:insert( uiGroup )
 end
 local function goToMenu()
     composer.gotoScene("scenes.menu")
@@ -36,9 +44,9 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-        button = display.newText("bat dau", 200, 150)
 
-        button:addEventListener("tap", goToMenu )
+
+              button:addEventListener("tap", goToMenu )
     end
 end
 
