@@ -3,6 +3,7 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 
 local button, backgroundImage
+local centerX, centerY = display.contentCenterX, display.contentCenterY
 local backGroup = display.newGroup()
 local uiGroup = display.newGroup()
 -- -----------------------------------------------------------------------------------
@@ -22,10 +23,10 @@ function scene:create( event )
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     backgroundImage = display.newImageRect( backGroup, "images/BGIntro.jpg", display.actualContentWidth, display.actualContentHeight)
-    backgroundImage.x, backgroundImage.y = display.contentCenterX, display.contentCenterY
+    backgroundImage.x, backgroundImage.y = centerX, centerY
   --  backgroundImage:toBack()
     button = display.newText( uiGroup,"bat dau", 200, 150)
-    button.x, button.y = display.contentCenterX, display.contentCenterY
+    button.x, button.y = centerX, centerY
     sceneGroup:insert( backGroup )
     sceneGroup:insert( uiGroup )
 end
