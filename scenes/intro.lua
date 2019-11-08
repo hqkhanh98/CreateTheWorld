@@ -2,6 +2,7 @@ local composer = require( "composer" )
 
 local scene = composer.newScene()
 
+local button
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -21,7 +22,9 @@ function scene:create( event )
     -- Code here runs when the scene is first created but has not yet appeared on screen
 
 end
-
+local function goToMenu()
+    composer.gotoScene("Scripts.menu")
+end
 
 -- show()
 function scene:show( event )
@@ -34,7 +37,9 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
-
+        button = display.newText("bat dau", 200, 150)
+      
+        button:addEventListener("tap", goToMenu )
     end
 end
 
