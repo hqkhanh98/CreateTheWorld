@@ -22,7 +22,7 @@ function scene:create( event )
 
 end
 local function goToMenu()
-    composer.gotoScene("Scripts.menu")
+    composer.gotoScene("scenes.menu")
 end
 
 -- show()
@@ -37,7 +37,7 @@ function scene:show( event )
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
         button = display.newText("bat dau", 200, 150)
-      
+
         button:addEventListener("tap", goToMenu )
     end
 end
@@ -51,7 +51,8 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
-
+        button:removeEventListener("tap", goToMenu )
+        button:removeSelf()
     elseif ( phase == "did" ) then
         -- Code here runs immediately after the scene goes entirely off screen
 
