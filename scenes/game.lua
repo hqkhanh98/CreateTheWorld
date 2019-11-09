@@ -17,7 +17,8 @@ local elements = require "classes.element"
 --=================================
 
 --=================================
-
+local background
+local backGroup = display.newGroup()
 -- -----------------------------------------------------------------------------------
 -- Scene event functions
 -- -----------------------------------------------------------------------------------
@@ -31,6 +32,9 @@ function scene:create( event )
 
     --=================================
     elements = elements.new().obj
+	  background = display.newImageRect( backGroup, "images/BGgame.jpg", 480, 320 )
+	  background.x, background.y = 240, 160
+    sceneGroup:insert( backGroup )
 end
 --=================================
 
