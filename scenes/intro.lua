@@ -34,8 +34,9 @@ function scene:create( event )
     sceneGroup:insert( backGroup )
     sceneGroup:insert( uiGroup )
 end
+
 local function goToMenu()
-    composer.gotoScene("scenes.menu")
+    composer.gotoScene("scenes.game")
 end
 function blink()
   -- transition.blink(btnPlay, {time = 3000})
@@ -69,6 +70,7 @@ function scene:hide( event )
 
     if ( phase == "will" ) then
         -- Code here runs when the scene is on screen (but is about to go off screen)
+
         btnPlay:removeEventListener("tap", goToMenu )
         btnPlay:removeSelf()
         btnOptions:removeSelf()
