@@ -34,14 +34,15 @@ function M.new( options )
             -- Reset touch focus
             display.getCurrentStage():setFocus( nil )
             self.isFocus = nil
-            obj.clear()
+
         end
       end
     return true
   end
 
-  function obj:clear( event )
-    print(event.target.name)
+  function obj:clear()
+    obj:removeEventListener( "touch" )
+    obj:removeSelf()
   end
 
   obj:addEventListener( "touch" )
