@@ -55,9 +55,9 @@ function scene:show( event )
         -- Code here runs when the scene is entirely on screen
         btnPlay:addEventListener("tap", goToMenu )
         --btnOptions:addEventListener("tap", goToMenu )
-        transition.to( btnPlay, {time = 300, x = centerX, y = 285, onComplete = blink })
+        transition.to( btnPlay, {time = 300, x = centerX, y = 220, onComplete = blink })
 
-        transition.to( btnOptions, {time = 200, delay= 300, alpha = 1, x = 100, y = 285})
+        transition.to( btnOptions, {time = 200, delay= 300, alpha = 1, x = 100, y = 220})
     end
 end
 

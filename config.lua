@@ -7,8 +7,8 @@ application =
 {
 	content =
 	{
-		width = 480,
-		height = 320,
+		width = 320,
+		height = 480,
 		scale = "zoomEven",
 		fps = 60,
 
