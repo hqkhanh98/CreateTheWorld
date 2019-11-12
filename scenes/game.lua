@@ -1,7 +1,10 @@
 local composer = require( "composer" )
 local data = require "libs.data"
 local scene = composer.newScene()
-
+--======================================================
+-- Đang bị lỗi do 2 sực kiện check
+-- của 2 nguyên tố khác nhau chồng chéo nhau
+--======================================================
 -- -----------------------------------------------------------------------------------
 -- Code outside of the scene event functions below will only be executed ONCE unless
 -- the scene is removed entirely (not recycled) via "composer.removeScene()"
@@ -19,7 +22,7 @@ local countTile = 0
 function scene:create( event )
 
   local sceneGroup = self.view
-
+  print( "22 - Game is init..." )
     -- Background of scene
 	background = display.newImageRect( "images/BGgame.jpg", 480, 320 )
 	background.x, background.y = 240, 160
@@ -71,21 +74,25 @@ function scene:create( event )
 	board.btnEarth.text = display.newText( board.btnEarth.name, board.btnEarth.x, board.btnEarth.y, nil, 12 )
   board.btnEarth.alpha = .5
   board.btnEarth.text.alpha = .5
+
   -- Insert into sceneGroup
 	sceneGroup:insert( background )
 	sceneGroup:insert( board )
+  print( "78 - Game is init successfully !" )
 end
 
 
 -- show()
 function scene:show( event )
-
+    print( "84 - Game is show" )
     local sceneGroup = self.view
     local phase = event.phase
 
     if ( phase == "will" ) then
         -- Code here runs when the scene is still off screen (but is about to come on screen)
+    print( "90 - Create tile .." )
     createTiles()
+    print( "92 - Create tile done !" )
     board.btnFire:addEventListener( "touch", touch )
     board.btnAir:addEventListener( "touch", touch )
     board.btnEarth:addEventListener( "touch", touch )
@@ -100,6 +107,7 @@ function touch( event )
     if event.phase == "began" then
       -- Set touch focus
       display.getCurrentStage():setFocus( event.target )
+      print( " 107 - Touch is button "..event.target.name )
       event.target.isFocus = true
       if event.target.name == "fire" then
         board.btnAir.alpha = .5
@@ -134,6 +142,7 @@ function touch( event )
           print( "FUSION ELEMENT | "..board.param1.exp.name.." AND "..board.param2.exp.name.." | => ?????" )
         end
       else
+        print( " 142 - Draw Element "..event.target.name )
         drawElementsByName( event.target.name )
       end
     elseif ( event.target.isFocus ) then
@@ -152,8 +161,9 @@ end
 -- function clear all items of bag
 --=================================
 function clearElements()
+
   if board.items == nil then
-    print("ERORR : items table was nil !")
+    print("ERORR: 163 - items table was nil !")
   else
     local items = board.items
     for i = 1, #items do
@@ -177,25 +187,29 @@ function drawElementsByName( name )
   local items = board.items
 
   if board.tiles == nil then
-    print("ERORR : tiles table was nil !")
+    print("ERORR: 187 - tiles table was nil !")
   else
+    print( "189 - Clear "..name )
     clearElements() -- Clear all items of bag before
-
+    print( "191 - Getting data.. " )
     local dataItems = data.getItemsActiveByGroup( name )
+    print( "193 - Getting done " )
     -- Create items
     for i = 1, size do
       x, y = board.tiles[i].x, board.tiles[i].y
-
+      print( "197 - Creating items.. " )
       items[i] = display.newImageRect( dataItems[i].path, 25, 25 )
       items[i].x, items[i].y = x, y
       items[i].name = dataItems[i].name
       items[i].check = false
       items[i]:addEventListener( "touch", onTouchElement )
     end
+    print( "204 - Create items done " )
   end
 end
 
 function clearParam( param )
+  print( "209 - Clear param "..param.name )
   param.exp:removeSelf()
   param.exp = nil
   param.check = false
@@ -204,6 +218,7 @@ end
 
 function createParam( param, name )
   local data = data.getItemActiveByName( name )
+    print( "218 - Create param "..param.name )
     param.exp = display.newImageRect( data.path, 25, 25 )
     param.exp.x, param.exp.y = param.x, param.y
     param.exp.name = data.name
@@ -236,6 +251,7 @@ function onTouchElement( event )
         end
       end
     else
+      print(event.target.check)
       if event.target.param == "exp1" then
         clearParam(board.param1)
       else
