@@ -2,18 +2,61 @@ local M = {}
 local json = require( "json" )
 local loadsave = require( "libs.loadsave" )
 local defaultLocation = system.DocumentsDirectory
+M.elements = -- t
+{
+    {
+        name = "fire",
+        group = "fire",
+        path = "images/fire.png",
+        active = true
+    },
+    {
+        name = "lava",
+        group = "fire",
+        path = "images/lava.png",
+        active = false
+    },
+    {
+        name = "coal",
+        group = "fire",
+        path = "images/coal.png",
+        active = true
+    },
+    {
+        name = "storm",
+        group = "air",
+        path = "images/storm.png",
+        active = false
+    },
+    {
+        name = "air",
+        group = "air",
+        path = "images/air.png",
+        active = true
+    },
+    {
+        name = "rock",
+        group = "earth",
+        path = "images/rock.png",
+        active = true
+    }
+}
+function M.getAllInfoElement()
+  loadsave.saveTable( M.elements, "Holy2.json" )
+  --print(type(M.elements))
+  local t = loadsave.loadTable("Holy2.json")
+  print("48 - "..type(t))
 
-M.elements = loadsave.loadTable("data.json")
+  loadsave.printTable(t)
 
-function M.getTable()
   return M.elements
 end
 
 
-function M.getItemByName( name )
+function M.getItemByName( t , name )
 	for i = 1, #t do
-		if M.elements[i].name == name then
-			return M.elements[i]
+		if t[i].name == name then
+			return t[i]
 		else return nil
 		end
 	end
