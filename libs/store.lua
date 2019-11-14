@@ -19,7 +19,7 @@ elements = -- t
         name = "coal",
         group = "fire",
         path = "images/coal.png",
-        active = true
+        active = false
     },
     {
         name = "storm",
@@ -37,7 +37,13 @@ elements = -- t
         name = "rock",
         group = "earth",
         path = "images/rock.png",
-        active = true
+        active = false
+    },
+    {
+        name = "water",
+        group = "water",
+        path = "images/water.png",
+        active = false
     }
 }
 function M.saveData()

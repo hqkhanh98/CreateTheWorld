@@ -15,7 +15,7 @@ function M.saveTable(t, filename, location)
     elseif not location then
       location = _defaultLocation
     end
-    
+
     local path = system.pathForFile( filename, location)
     local file = io.open(path, "w")
     if file then
@@ -27,7 +27,7 @@ function M.saveTable(t, filename, location)
         return false
     end
 end
- 
+
 function M.loadTable(filename, location)
     if location and (not _validLocations[location]) then
      error("Attempted to load a table from an invalid location", 2)
@@ -35,6 +35,7 @@ function M.loadTable(filename, location)
       location = _defaultLocation
     end
     local path = system.pathForFile( filename, location)
+    print(path)
     local contents = ""
     local myTable = {}
     local file = io.open( path, "r" )
@@ -60,7 +61,7 @@ function M.changeDefault(location)
     return true
 end
 
-function M.print_r ( t ) 
+function M.print_r ( t )
     local print_r_cache={}
     local function sub_print_r(t,indent)
         if (print_r_cache[tostring(t)]) then

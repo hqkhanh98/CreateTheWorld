@@ -1,5 +1,6 @@
 local composer = require( "composer" )
 local data = require "libs.data"
+local recipe = require "libs.recipe"
 local scene = composer.newScene()
 
 -- -----------------------------------------------------------------------------------
@@ -63,7 +64,7 @@ function scene:create( event )
 
     board.btnAir = display.newRect( 75, 165, 50, 20 )
     board.btnAir.name = "air"
-    board.btnAir:setFillColor(0, 0, 0.255)
+    board.btnAir:setFillColor( 0, 1, 1 )
     board.btnAir.text = display.newText( board.btnAir.name, board.btnAir.x, board.btnAir.y, nil, 12 )
     board.btnAir.alpha = .5
     board.btnAir.text.alpha = .5
@@ -74,6 +75,13 @@ function scene:create( event )
     board.btnEarth.text = display.newText( board.btnEarth.name, board.btnEarth.x, board.btnEarth.y, nil, 12 )
     board.btnEarth.alpha = .5
     board.btnEarth.text.alpha = .5
+
+    board.btnWater = display.newRect( 175	, 165, 50, 20 )
+    board.btnWater.name = "water"
+    board.btnWater:setFillColor( 0, 0.128, 1)
+    board.btnWater.text = display.newText( board.btnWater.name, board.btnWater.x, board.btnWater.y, nil, 12 )
+    board.btnWater.alpha = .5
+    board.btnWater.text.alpha = .5
 
     -- Insert into sceneGroup
     sceneGroup:insert( background )
@@ -95,6 +103,7 @@ function scene:show( event )
         board.btnFire:addEventListener( "touch", touch )
         board.btnAir:addEventListener( "touch", touch )
         board.btnEarth:addEventListener( "touch", touch )
+        board.btnWater:addEventListener( "touch", touch )
         board.btnFusion:addEventListener( "touch", touch )
     elseif ( phase == "did" ) then
         -- Code here runs when the scene is entirely on screen
@@ -115,16 +124,20 @@ function touch( event )
         board.btnFire.text.alpha = 1
         board.btnEarth.alpha = .5
         board.btnEarth.text.alpha = .5
+        board.btnWater.alpha = .5
+        board.btnWater.text.alpha = .5
         board.panel:setFillColor(.255, 0, 0)
 
       elseif event.target.name == "air" then
-        board.btnAir.alpha = 1
-        board.btnAir.text.alpha = 1
+        board.btnAir.alpha = .8
+        board.btnAir.text.alpha = .8
         board.btnFire.alpha = .5
         board.btnFire.text.alpha = .5
         board.btnEarth.alpha = .5
         board.btnEarth.text.alpha = .5
-        board.panel:setFillColor(0, 0, 0.255)
+        board.btnWater.alpha = .5
+        board.btnWater.text.alpha = .5
+        board.panel:setFillColor( 0, 1, 1 )
 
       elseif event.target.name == "earth" then
         board.btnAir.alpha = .5
@@ -133,12 +146,26 @@ function touch( event )
         board.btnFire.text.alpha = .5
         board.btnEarth.alpha = 1
         board.btnEarth.text.alpha = 1
+        board.btnWater.alpha = .5
+        board.btnWater.text.alpha = .5
         board.panel:setFillColor( .57, .2, .004)
+
+      elseif event.target.name == "water" then
+        board.btnAir.alpha = .5
+        board.btnAir.text.alpha = .5
+        board.btnFire.alpha = .5
+        board.btnFire.text.alpha = .5
+        board.btnEarth.alpha = .5
+        board.btnEarth.text.alpha = .5
+        board.btnWater.alpha = 1
+        board.btnWater.text.alpha = 1
+        board.panel:setFillColor( 0, 0.128, 1)
       end
 
       if event.target.name == "fusion" then
         if board.param1.isHaveItem == true and board.param2.isHaveItem == true then
-          print( "FUSION ELEMENT | "..board.param1.exp.name.." AND "..board.param2.exp.name.." | => ?????" )
+          local result = recipe.checkRecipes( board.param1.exp.name, board.param2.exp.name )
+          print( "FUSION ELEMENT | "..board.param1.exp.name.." AND "..board.param2.exp.name.." | => "..result )
         end
       else
         print( " 142 - Draw Element "..event.target.name )
@@ -186,9 +213,10 @@ end
 -- function draw all items of bag with name group
 --===============================================
 function drawElementsByName( name )
+
   local size = data.getSizeOfGroupActive( name )
   local x , y
-
+  print(name, size)
   if board.items == nil then
     board.items = {}
   end
