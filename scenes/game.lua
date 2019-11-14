@@ -166,6 +166,14 @@ function touch( event )
         if board.param1.isHaveItem == true and board.param2.isHaveItem == true then
           local result = recipe.checkRecipes( board.param1.exp.name, board.param2.exp.name )
           print( "FUSION ELEMENT | "..board.param1.exp.name.." AND "..board.param2.exp.name.." | => "..result )
+
+          if data.changeItemActiveByName( result ) == true then
+            --save
+            data.saveData()
+          else
+
+          end
+
         end
       else
         print( " 142 - Draw Element "..event.target.name )

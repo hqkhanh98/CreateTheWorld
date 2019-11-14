@@ -9,6 +9,14 @@ function M.getTable()
   return M.elements
 end
 
+function M.saveData()
+  if M.elements == nil then
+    M.elements = {}
+  end
+  table = loadsave.saveTable( M.elements, "data.json" )
+
+end
+
 
 function M.getItemByName( name )
 	for i = 1, #t do
@@ -23,6 +31,17 @@ function M.getItemActiveByName( name )
 	for i = 1, #M.elements do
 		if M.elements[i].name == name and M.elements[i].active then
 			return M.elements[i]
+		end
+	end
+end
+
+function M.changeItemActiveByName( name )
+	for i = 1, #M.elements do
+		if M.elements[i].name == name and M.elements[i].active == false then
+			M.elements[i].active = true
+      return true
+    else
+      return false
 		end
 	end
 end
