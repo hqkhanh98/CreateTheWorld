@@ -40,9 +40,21 @@ elements = -- t
         active = false
     },
     {
+        name = "earth",
+        group = "earth",
+        path = "images/earth.png",
+        active = true
+    },
+    {
         name = "water",
         group = "water",
         path = "images/water.png",
+        active = true
+    },
+    {
+        group = "water",
+        path = "images/swamp.png",
+        name = "swamp",
         active = false
     }
 }

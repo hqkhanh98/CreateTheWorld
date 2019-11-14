@@ -2,9 +2,7 @@ local M = {}
 local json = require( "json" )
 local loadsave = require( "libs.loadsave" )
 local defaultLocation = system.DocumentsDirectory
-
-M.elements = loadsave.loadTable("data.json")
-
+M.elements = {}
 function M.getTable()
   return M.elements
 end
@@ -13,10 +11,15 @@ function M.saveData()
   if M.elements == nil then
     M.elements = {}
   end
-  table = loadsave.saveTable( M.elements, "data.json" )
+
+  M.elements = loadsave.saveTable( M.elements, "data.json" )
 
 end
 
+function M.updateData()
+  M.elements = loadsave.loadTable("data.json")
+  --loadsave.saveTable( M.elements, "data.json" )
+end
 
 function M.getItemByName( name )
 	for i = 1, #t do
@@ -40,10 +43,9 @@ function M.changeItemActiveByName( name )
 		if M.elements[i].name == name and M.elements[i].active == false then
 			M.elements[i].active = true
       return true
-    else
-      return false
 		end
 	end
+  return false
 end
 
 function M.getItemsByGroup( group )

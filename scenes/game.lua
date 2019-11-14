@@ -24,6 +24,7 @@ function scene:create( event )
     local sceneGroup = self.view
     -- Code here runs when the scene is first created but has not yet appeared on screen
     print( "20 - Game is init..." )
+    data.updateData()
       -- Background of scene
   	background = display.newImageRect( "images/BGgame.jpg", 480, 320 )
   	background.x, background.y = 240, 160
@@ -166,12 +167,14 @@ function touch( event )
         if board.param1.isHaveItem == true and board.param2.isHaveItem == true then
           local result = recipe.checkRecipes( board.param1.exp.name, board.param2.exp.name )
           print( "FUSION ELEMENT | "..board.param1.exp.name.." AND "..board.param2.exp.name.." | => "..result )
-
-          if data.changeItemActiveByName( result ) == true then
+          local check = data.changeItemActiveByName( result )
+          print( "171 - Check is "..tostring(check))
+          if check == true then
             --save
             data.saveData()
+            data.updateData()
           else
-
+            print("ko trung")
           end
 
         end
